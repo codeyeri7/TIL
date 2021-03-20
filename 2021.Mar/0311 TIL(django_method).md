@@ -6,9 +6,9 @@ CRUD 하는 구체적인 순서 기록하기!
 
 restful api 찾아서 읽어보기
 
+---
 
-
-u
+:bear: u 수정
 
 조회를 먼저!
 
@@ -31,9 +31,9 @@ In [10]: s.save()
 
 끝!
 
+---
 
-
-d 삭제
+:bear: d 삭제
 
 마지막꺼를 지우고 싶을 때
 
@@ -58,7 +58,7 @@ In [16]: s = 0
 
 이렇게하면 메모리에서도 사라짐.
 
-
+---
 
 urls.py에
 
@@ -74,72 +74,58 @@ urls.py에
 
   path('<int:pk>/delete/', views.delete),
 
-
+---
 
 views.py에 함수 틀만 만들어 놓기
 
+```python
 \# Update
-
 \## 수정용 HTML 제공
-
 def edit(request):
-
   return render(request, 'orm_practice/edit.html')
 
-
-
 \## 실제 수정
-
 def update(request):
-
   return redirect()
-
-
 
 \# Delete
-
 def delete(request):
-
   return redirect()
+```
 
 pk를 인자로 받아오니까 request 뒤에 pk 추가
 그래서 student = Student.objects.get(pk=pk) 추가(pk를 쓸거니까!)
 
+---
 
+삭제파트는 
 
-삭제파트는 \# Delete
-
+```python
+# Delete
 def delete(request, pk):
-
   student = Student.objects.get(pk=pk)
-
   student.delete()  # 이거 추가로 끝!
-
   return redirect() 
+```
 
 ulrs.py에 name='edit' 추가! 이제는 처음에 path 쓸 때부터 네임 만들어주기
 
 return redirect('index') # 삭제했으니 전체목록 보여주기  - 여기까지 삭제 끝!
 
-
+---
 
 new.html의 block body 안에 있는 내용을 edit.html에 복사
 
 서버 켜보면 edit 페이지가 나오는데 불편한 점 : 이전에 썼던 내용이 안 나오고 백지가 나옴.
 
+```python
 \# Update
-
 \## 수정용 HTML 제공
-
 def edit(request, pk):
-
   student = Student.objects.get(pk=pk)
-
   context = {'student': student}  # 이렇게 학생 정보를 갖고오면 된다.
-
   return render(request, 'orm_practice/edit.html', context)
-
-
+```
 
 edit.html에 value="{{ student.name }}" 이렇게 벨류값 추가
 여기서 textarea는 종료태그에 있으니까 사이에 넣어준다. 이렇게하면 이전 값이 나온다.
@@ -153,7 +139,7 @@ form의 액션을 update로 바꿔야 함. 원래 create였는데 그러면 계�
 :exclamation: 두번째 인자로 student.pk도 넣어준다.  urls.py에 보면 update에는 반드시 pk가 있어야 하기 때문에. 이거 없으면 바로 에러 뜸. index.html에서도 디테일로 갈건데 id가 없으면 못 가니까 적어준것. 
 ```<form action="practice/{{ student.pk }}/update"></form>```과 같다. 저 사이에 pk가 있어야 하기 때문에.
 
-
+---
 
 views.py에서 업데이트 함수에서 
 
@@ -169,7 +155,7 @@ views.py에서 업데이트 함수에서
 
 `return redirect('detail', pk=student.pk)`로 변경. 수정하고 디테일 페이지로 이동할거니까!
 
-
+---
 
 detail.html에서 밑에 버튼 추가하기!
 
@@ -185,7 +171,7 @@ url 뒤에 student.pk 안 넣어줬더니 에러가 떴다. 저걸 넣어줘야 
 삭제할 때 크롬에서 f12 눌러서 콘솔로 가서 confirm()을 사용하면 저렇게 뜬다. 이건 파이썬의 역할이 아니라 이 브라우저의 역할. 
 detail.html에` onclick="return confirm('삭제할거?')"`를 추가하자.
 
-
+---
 
 현재 cud가 위험. 누구나 접근해서 지우고 수정하고 생성할 수 있다...;; 이를 해결하기 위한 방법은?
 
