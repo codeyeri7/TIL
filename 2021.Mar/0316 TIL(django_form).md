@@ -16,7 +16,7 @@ D : 유일하게 하나만 필요 => 도움이 필요없음.
 
 new.html에서 form이 제일 핵심 : 이 form 안에서만 일반 사용자가 데이터를 제출할 수 있기 때문. => 특히 POST 방식으로 요청을 보내는 것 더더욱 이 방법밖에 없다.
 
-POST : 사용자가 우리에게 요청을 보내는데, 그 중 90프로는 달라는 요청. 근데 가끔씩은 이것좀 받아가! 라는 방식을 요청할 떄 있음(게시글 작성..) 그럼 그 데이터를 받아서 DB에 저장(DB에 변화가 일어남). DB에 변화가 일어날 때는 POST 방식을 써라. http라는 프로토콜의 기획단계에서 이런 경우에는 POST방식으로 요청을 하도록 구분을 해놓자고 만듦. DB의 변화로 인해 망가질 수도 있기 때문에 장고측에서 모든 요청이 전부 거쳐가야하는 middleware를 만듦.(settings.py) -> 이 요청이 이 form에서 제대로 온 게 맞는지 csrf_token을 이용해 안전성을 점검. csrf_token 은 form 안에 있음. 그래서 무조건 사용자에게 같이 날라옴. 그럼 middleware가 어 post 요청이네? 근데 우리가 인증했네?(csrf_token) 그럼 저장-
+POST : 사용자가 우리에게 요청을 보내는데, 그 중 90프로는 달라는 요청. 근데 가끔씩은 이것좀 받아가! 라는 방식을 요청할 때 있음(게시글 작성..) 그럼 그 데이터를 받아서 DB에 저장(DB에 변화가 일어남). DB에 변화가 일어날 때는 POST 방식을 써라. http라는 프로토콜의 기획단계에서 이런 경우에는 POST방식으로 요청을 하도록 구분을 해놓자고 만듦. DB의 변화로 인해 망가질 수도 있기 때문에 장고측에서 모든 요청이 전부 거쳐가야하는 middleware를 만듦.(settings.py) -> 이 요청이 이 form에서 제대로 온 게 맞는지 csrf_token을 이용해 안전성을 점검. csrf_token 은 form 안에 있음. 그래서 무조건 사용자에게 같이 날라옴. 그럼 middleware가 어 post 요청이네? 근데 우리가 인증했네?(csrf_token) 그럼 저장-
 
 create뷰함수에서 if post를 안써도 돌았는데 굳이 쓴 이유는 : 요청방식이 post일때만 돌아!라고 한 것. / GET으로 온다면? 우리가 만든 form이 아니라 이상한 사용자들이 get으로 요청을 보내면 우리가 해줄 수 있는게 없으니 다시 작성하러 가라고 한 것. (사람들이 말 안 들을까봐 해놓은 대책)
 
@@ -216,7 +216,7 @@ def contact(request):
 
  :: html을 사용하기 쉽게 한다.
 
-5)) contact.html => form 태그 만들기 `<form action="#" method="POST"></form>` => 이 사이에 csrf_token 넣기 => 서버 켜보기 (지금은 crud로만 들어가면 에러뜬다. crud/contact/로 들어가기) => html에  `{{ contact_form.as_p}}` 추가 그러면 요소들이 한 줄 씩 띄어서 뜬다. ===> 이게 바로 그 예시
+5)) contact.html => form 태그 만들기 `<form action="#" method="POST"></form>` => 이 사이에 csrf_token 넣기 => 서버 켜보기 (지금은 crud로만 들어가면 에러뜬다. crud/contact/로 들어가기) => html에  `{{ contact_form.as_p }}` 추가 그러면 요소들이 한 줄 씩 띄어서 뜬다. ===> 이게 바로 그 예시
 
 :: data validation 
 
@@ -289,10 +289,10 @@ contact.html에 뭐 별로 안 쓴 거 같은데 네임 이런거 다 뜨네??
 
 ```
 contact_form = ContactForm()
-        context = {
-            'contact_form': contact_form
-        }
-        return render(request, 'articles/contact.html', context)
+    context = {
+        'contact_form': contact_form
+    }
+    return render(request, 'articles/contact.html', context)
 ```
 
 contact.html에 이걸 적은 결과!!
@@ -311,8 +311,8 @@ contact.html에 이걸 적은 결과!!
 
 ```
 elif request.method == 'POST':
-        contact_form = ContactForm(request.POST)
-        return redirect('contact')
+    contact_form = ContactForm(request.POST)
+    return redirect('contact')
 ```
 
  어떻게 나오는지 궁금하니 이걸 return위에 넣어보자! `print(contact_form)`
@@ -337,10 +337,10 @@ elif request.method == 'POST':
 
 ```
 elif request.method == 'POST':
-        article_form = ArticleForm()
-        if article_form.is_valid():
-            article.save()
-        return redirect('detail')
+    article_form = ArticleForm()
+    if article_form.is_valid():
+        article.save()
+    return redirect('detail')
 ```
 
 3)) forms.py에서 `class ArticleForm(forms.ModelForm):` 추가 => ArticleForm은 ModelForm이다. model을 연동시킬 수 있음. => 맨 위에 `from .models import Article` 추가 =>
@@ -349,8 +349,8 @@ class ArticleForm 안에 추가
 
 ```
 class Meta:
-        model = Article
-        fields = '__all__'
+    model = Article
+    fields = '__all__'
 ```
 
 4)) views.py 맨 위에 ContactForm 뒤에 ArticleForm 추가

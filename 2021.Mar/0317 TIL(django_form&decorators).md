@@ -91,10 +91,11 @@ views.py에서 create에서 context가 밖에 있을 때
 상황에 따른 2가지 모습
 
 1. is_valid에서 내려온 form : 에러메세지를 포함한 form
-
 2. else에서 내려온 form : 빈 form
 
-(여기 다시 듣고 천천히 정리하지)
+이거를 context로 받아서 보여줌
+
+(여기 다시 듣고 천천히 정리하기)
 
 ---
 

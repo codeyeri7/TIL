@@ -19,7 +19,7 @@ fields에서 id라는 필드를 새로 만들어주었고, title과 content는 �
 #### migrate(중요!!!!!!!)
 
 - 마이그레이션을 db에 반영하기 위해 사용
-- 설계도를 실제 db에 반영하는 관정
+- 설계도를 실제 db에 반영하는 과정
 - 모델에서의 변경 사항들과 db의 스키마가 동기화를 이룸
 
 `python manage.py migrate`를 하면 이제 설계도를 바탕으로 테이블를 만들어주는 단계! 
@@ -117,7 +117,7 @@ sessions
 
 각각의 테이블이 migrate가 잘 되었는지 체크가 된 것. X가 체크되었다는 뜻.
 
-
+---
 
 models.py에 새로운 필드를 추가하게 되면 다시 설계도를 만들기 위해 makemigrations를 해줘야한다.
 
@@ -179,7 +179,7 @@ makemigrations를 한 후 마지막으로 migrate해준다.
 
 #### 문법
 
-Article.objects.all()  - all()이 핵심 명령어이다.
+Article.objects.all()  -  all()이 핵심 명령어이다.
 클래스네임.매니저.쿼리셋API
 
 - 매니저 
@@ -309,6 +309,10 @@ In [1]: article = Article(title='second', content='django!!')
 ![image-20210310141319017](0310 TIL.assets/image-20210310141319017.png)
 
 pk와 id는 같다. 장고가 같은 기능을 하나 더 만든 것. 장고가 id보다는 pk로 조회하라고 만든것.
+
+```
+article.save() 해야한다.
+```
 
 :three: 3번째 방법
 

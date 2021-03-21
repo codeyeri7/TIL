@@ -31,7 +31,7 @@ class Meta:
 
 name 위젯에 클래스를 주고 싶으면 widget=forms.TextInput(attrs={'class': 'my-class'}) 이런식으로 넣어줄 수 있다.
 
-4)) urls.py => path들 적기(pk적을 떄 그냥 적었는데... 교수님은  reservation_pk로 적으심 이건 설정하기 나름) pk는 detail, edit, delete에 추가 
+4)) urls.py => path들 적기(pk적을 때 그냥 적었는데... 교수님은  reservation_pk로 적으심 이건 설정하기 나름) pk는 detail, edit, delete에 추가 
 
 5)) views.py => 함수 틀 만들어주기(일단 다 pass로..ㅎ) => 여기서도 detail, edit, delete는 request, reservation_pk로! (아까 urls에서 변수명을 그렇게 지정했기 때문)=> 맨 위에 `from .models import Reservation`추가 
 
@@ -73,7 +73,7 @@ new랑 edit이랑 html 코드가 완전히 똑같다. 굳이 2개 만들어야 �
 
 이건 제안임. 이런 방법도 있다는 것
 
-form.html을 만들어거 아까 적은 내용 복붙. => views.py에서 return할 때 'board/form.html'로 하면 중복을 줄일 수 있다. 
+form.html을 만들어서 아까 적은 내용 복붙. => views.py에서 return할 때 'board/form.html'로 하면 중복을 줄일 수 있다. 
 
 :exclamation: 앞으로 이 코드는 고정이다!!!!!!!!!!!!!!!!!
 
