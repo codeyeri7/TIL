@@ -49,7 +49,17 @@ signup은 User table Create / profile은 User table detail이고, 이것과 다�
 => 여기서는 일단 프로필을 보는것만 만들었다. 회원수정은 또 다르다.
 
 12)) profile.html 생성 => extends, block, 제목 => {{ me.username }} 끝!
-근데 여기서, `{{ me.username }}`을 사용해도, `{{ user.username }}`를 사용해도,`{{ request.user.username }}`를 사용해도 모두 같은 값이 나온다. 이 셋의 차이는 무엇일까? 일단, me=request.user라고 했으니 첫번째와 세번째는 같다. 그리고 첫번째와 두번째는 결과는 같지만 좀 다른데, request.user는 `/profile/<username>`으로 요청을 보낸 사람이고(로그인 한 당사자), user는 `/profile/<username>`에서 username에 해당하는 사람(내가 다른 사람 프로필 볼 수 있는 경우, 그 프로필의 주인)이다. 
+근데 여기서, `{{ me.username }}`을 사용해도, `{{ user.username }}`를 사용해도,`{{ request.user.username }}`를 사용해도 모두 같은 값이 나온다. 이 셋의 차이는 무엇일까? 일단, me=request.user라고 했으니 첫번째와 세번째는 같다. 그리고 첫번째와 두번째는 결과는 같지만 좀 다른데, user는 html 작성 시 사용되는 장고 문법(DTL)의 예약어로, user라는 문자 자체가 의미하는 것이 현재 요청을 보낸 사용자라는 것.
+
+아니 그럼 05_AUTH_2에서 views.py의 def profile의 주석은 뭐지? 그건 위에 보면 `user = get_object_or_404(User, username=username)`라고 해서 user는 username이라고 지정, 근데 여기서 헷갈리니까 context로 'user_profile' : user라고 해줬다. 그래서 username을 의미하는 user는 user_profile인 것.
+
+user가 요청한 사용자라는 것은 html에서 쓰이는 예약어라고 생각하자!
+
+헷갈릴 수 있음ㅠㅠㅠ
+
+이거는 반 친구가 답변해준 말! 
+
+셋 다 같은 말이기는 합니다! 1. me는 views함수에서 랜더 함수의 인자로 들어간 context에 포함되어 있는 me로, views 함수에서 request.user 로 정의되어있습니다. 즉, 현재 요청을 보낸 사용자입니다. 2. user는 DTL(html 작성 시 사용되는 장고 문법)의 예약어 입니다. 파이썬의 from, True 와 같이 문자 자체가 의미를 갖는 것이 예약어입니다. DTL에서 user를 사용할 경우 현재 요청을 보낸 사용자를 의미합니다. 3. request.user는 요청을 보낸 사용자를 의미합니다. 요청 자체를 render 함수를 통해 인자로 받았기 때문에 이렇게 쓸 수 있는 것...일 겁니다. 즉 전부 다 '요청을 보낸 사용자'라는 뜻이에요
 
 ---
 
