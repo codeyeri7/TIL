@@ -86,7 +86,7 @@
 
   HTTP 특징 2개 때문에 쿠키가 있는 것.
 
-- Django는 특정 session id를 포함하는 쿠키를 사용해서 각각의 브라오저와 사이트가 연결된 세션을 알아냄.(세션 정보는 django DB의 django_session 테이블에 저장)
+- Django는 특정 session id를 포함하는 쿠키를 사용해서 각각의 브라우저와 사이트가 연결된 세션을 알아냄.(세션 정보는 django DB의 django_session 테이블에 저장)
 
 - 주로 로그인 상태 유지에 사용
 
@@ -262,12 +262,12 @@ if request.user.is_authenticated:
 
 6)) articles의 index.html => 
 
-```
+```html
 {% if request.user.is_authenticated %}
     <a href="{% url 'articles:create' %}">[CREATE]</a>
-  {% else %}
+{% else %}
     <a href="{% url 'accounts:login' %}">[새 글을 작성하려면 로그인하세요]</a>
-  {% endif %}
+{% endif %}
 ```
 
 
