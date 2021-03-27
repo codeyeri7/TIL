@@ -82,4 +82,151 @@ from django.contrib.auth.decorators import login_required
 
 ---
 
-회원수정, 비밀번호 변경, 탈퇴는 추가로 다시 정리하기!
+:bear: 회원 수정
+
+1)) accounts의 urls.py => `path('profile/', views.profile, name='profile'),` 추가 => index path는 지우기
+
+2)) views.py에서도 index를 profile로 고쳐서 쓰기
+
+```python
+def profile(request, username):
+    user_profile = get_object_or_404(User, username=username)
+    context = {'user_profile': user_profile}
+    return render(request, 'accounts/profile.html', context)
+```
+
+3)) profile.html 만들기
+
+```html
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ user_profile.username }}</h1>
+{% comment %} 
+  /accounts/profile/neo
+  => user_profile = <User: neo> 객체 
+{% endcomment %}
+{% comment %} request.user -> 지금 화면을 보고있는 사람 {% endcomment %}
+{% if request.user == user_profile %}
+<div>
+  <form action="" method="POST">
+    {% csrf_token %}
+    개인정보 수정 <input type="text">
+    <button class="btn btn-primary">정보 수정</button>
+  </form>
+  <form action="#" method="POST" class="d-inline-block">
+    {% csrf_token %}
+    <button class="btn btn-danger">회원 탈퇴</button>
+  </form>
+</div>
+{% endif %}
+{% endblock content %}
+```
+
+button은 form 안에서는 input type submit과 같고, form 밖에서는 아무 기능 없는 버튼이다.
+
+4)) forms.py =>  `class CustomUserChangeForm()`를 만들고 위에 `UserChangeForm` 추가 => `User = get_user_model()` 이렇게 저장 후
+
+```python
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = '__all__'
+```
+
+5)) views.py =>  맨 위에  `CustomUserChangeForm` 추가 => profile 함수 => `form = CustomUserChangeForm()` 랑 context에 `'form': form,` 추가
+
+---
+
+:bear: 회원 탈퇴
+
+1)) urls.py => `path('withdraw/', views.withdraw, name='withdraw'),` 추가 => 얘는 나만 탈퇴시킬 수 있기 때문에 username을 추가하지 않아도 된다.
+
+2)) views.py => 
+
+```python
+@login_required
+@require_POST
+def withdraw(request):
+    request.user.delete()  # 팔찌를 차고 있는 사람을 없앤다.
+    auth_logout(request)  # cookie(팔찌) 회수 + session 테이블에서 레코드 삭제
+    return redirect('articles:index')
+```
+
+3)) profile.html => button에 ` onclick="return confirm('진짜 하실건가요?ㅠㅠ')` 추가
+
+---
+
+:bear: 비번 변경
+
+1)) urls.py =>  `  path('profile/password/', views.change_password, name='change_password'),` 추가
+
+2)) views.py =>  AuthenticationForm 뒤에 `PasswordChangeForm` 추가
+
+앞에서 사용했던 UserChangeForm으로는 비밀번호 수정이 불가능하다. 비밀번호는 암호화가 되어 DB에 저장되기 때문에 단순히 User edit form에서 알아볼 수 있는 문자로는 수정이 불가능하며 암호화 괒엉이 필요하다. 따라서 비밀번호 변경을 위한 별도의 폼을 사용해야한다. => 그게 django 내장 폼인 PasswordChangeForm이다.
+
+3)) change_password 함수 만들기
+
+```python
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('accounts:profile', request.user.username)
+    else:
+        form = PasswordChangeForm(request.user)
+    context = {'form': form,}
+    return render(request, 'accounts/change_password.html', context)
+```
+
+4)) change_password.html 만들기
+
+```html
+{% extends 'base.html' %}
+{% block content %}
+<h1>Change Password</h1>
+
+<form method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn btn-warning">Set Password</button>
+</form>
+{% endblock content %}
+```
+
+5)) profile.html => 비밀번호 변경 링크 달기
+
+```html
+<div>
+  <a href="{% url 'accounts:change_password' %}">비밀번호 변경</a>
+</div>
+```
+
+6)) views.py
+
+세션에는 비밀번호를 포함하여 유저의 정보가 담겨있다. 비밀번호가 바뀔 경우, 기존의 세션에 담긴 유저의 비밀번호와 일치하지 않게 되고, 세션이 만료되어 로그인이 풀리게 된다. 따라서 비밀번호를 변경하고도 로그인을 유지하게 하기 위해서는 추가적인 코드 작성이 필요하다.
+
+`update_session_auth_hash(request, form.user)`
+
+:세션에 있는 로그인 정보 해쉬를 업데이트 할 때 사용하는 메서드
+:새로 설정된 비밀번호의 정보는 user에 담겨있다.
+:request 인자를 통해 session에 정보를 업데이트한다.
+:사용을 위해 import 해와야 한다.
+
+```python
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            from django.contrib.auth import update_session_auth_hash  # 교수님은 여기에 import 하심.. 왜? 맨 위에는 안되나?
+            update_session_auth_hash(request, form.user)
+            return redirect('accounts:profile', request.user.username)
+    else:
+        form = PasswordChangeForm(request.user)
+    context = {'form': form,}
+    return render(request, 'accounts/change_password.html', context)
+```
+
