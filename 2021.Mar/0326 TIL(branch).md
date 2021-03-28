@@ -9,7 +9,7 @@
 이 두 곳에서 동시에 수정해야 하는 경우가 생김 그럴때는?
 WEB IDE라는 버튼이 있음. 깃랩 사이트 내에서 수정하고, vscode 안에서 수정하기 => 깃랩 사이트 내에서 커밋이 가능함(update README). 커밋한 후 vscode에서도 git add . / git commit -m 'fix text' 을 한 후(fix text) => 깃랩의 프로젝트 페이지에서 commit을 보면 커밋한 히스토리를 볼 수 있다. => vscode에서 git log --oneline을 쳐보면 update README와 fix text의 히스토리가 달라짐. 커밋의 히스토리가 달라져서 이제 충돌이 일어날 것. => vscode에서 또 수정하고 깃 애드, 깃 커밋(update README) 깃 푸시를 하면 에러 뜸 => errors : failed to push some refs to.. 하면서 git pull하라고 뜸 => git log --one line으로 커밋의 기록을 보며 비교해보자 => 
 
-![image-20210326091303668](C:\Users\codeyeri\AppData\Roaming\Typora\typora-user-images\image-20210326091303668.png)
+![](0326 TIL(branch).assets/image-20210326091303668.png)
 
 지금 이렇게 뜸 => 여기서 깃 풀을 하면 원격에 있던 애들을 로컬로 끌고 올 것. 서로 다른 애들을 합칠 것 =>  git pull origin master => 이렇게 하면 원격에만 있던 애가 저 위에 cde랑 a6c 사이에 들어가야 함. 그럼 아니 저 둘이 안에 들어있는 내용이 다른데 어떻게 할 건지 선택하라고 vscode에 뜬다. 난 vscode에서 추가로 저장한 걸 맞다고 할거야(current change) / 난 깃랩에서 적은게 맞다고 할거야(incoming change) 버튼을 vscode에서 누르면 선택이 됨 => 난 새로 수정핡거야 해서 vscode에서 새로 적어서 => 터미널을 보면 master|MERGING이라 뜸 => 이 상태에서 깃 애드 / 깃 커밋을 하면 머징이라는 글자라 사라짐. => git log --oneline을 하면 깃랩에 있던 정보가 로컬에도 들어와져 있는 걸 볼 수 있다. => 그럼 이제 로컬에 있는 애들이 원격에 다시 저장할 것 => git push origin master => 원격에도 똑같이 업로드가 되었다.
 
@@ -97,14 +97,5 @@ git brach dev를 만들고 옮기고 기능 추가 후 애드 / 커밋 한 후
 
 git branch a => git switch a => a기능 추가하기 => 깃 애드 / 커밋 => git switch dev => git merge a => git switch master => git merge dev
 
----
 
-월말평가
 
-중요 키워드 
-
-- crud 중 cr이 더 중요하다. 모델폼을 이용한 crud 로직을 짤 수 있어야 한다.
-
-- auth 유저관리. 회원가입, 로그인, 비밀번호 변경, 수정.... 이 중 중요한 건 회원가입을 해야 로그인을 할 수 있고, 로그인을 해야 게시물을 작성할 수 있으니 회원가입과 로그인이 제일 중요!
-- 1:N관계까지 다 보기!(어제 본거라 비중은 조금 낮다.)
-- import해야 하는 건 명시되어 있다. import 하는 애들이 무슨 역할을 하는지 알아두기
