@@ -337,7 +337,7 @@ settings.py =>맨 밑에 `AUTH_USER_MODEL = 'accounts.User'` 추가
 
 이제 우리는 재정의 해줘야 한다. => 공식문서의 `Custom users and the built-in auth forms`로 가보자 => UserCreationForm과 UserChangeForm은 애초에 기본 유저 모델을 참조한 상태로 만들어진 애들이라 어쩔 수 없이 재정의 해줘야 한다. 이 둘만!
 
-accounts의 forms.py => get_user_model이 User를 리턴해준다.(현재 활성화되어있는 함수) 그래서 User라는 이름으로 직접참조하지 말라고 get_user_model을 장고가 만들어놓은 것
+accounts의 forms.py => get_user_model이 User를 리턴해준다.(그냥 User 모델을 갖고오면 현재 활성화되어있는 모델을 갖고온다. 지금은 우리가 User모델이 하나니까 괜찮지만 나중에는 여러개일 수 있어서 나중을 위해서 get_user_model을 쓰는것) 그래서 User라는 이름으로 직접참조하지 말라고 get_user_model을 장고가 만들어놓은 것
 
 맨 위에 UserCreationForm 추가하고 이거 적기
 
@@ -447,3 +447,4 @@ NOT NULL 에러 : 비어있을 수 없는 데가 비어있다는 뜻. => save하
 역참조 다시 공부하기
 
 순서대로 다시 정리해보고 만들기!!
+
