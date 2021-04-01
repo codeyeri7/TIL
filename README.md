@@ -28,4 +28,8 @@
 | 0325 |          db sql           |  V   |
 | 0326 |        git branch         |  V   |
 | 0331 |       Many To Many        |  V   |
+<<<<<<< HEAD
 | 0401 |            M:N            |  V   |
+=======
+| 0401 |                           |      |
+>>>>>>> 2c2851d (readme edit)
