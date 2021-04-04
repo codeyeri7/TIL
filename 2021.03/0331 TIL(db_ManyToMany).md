@@ -540,7 +540,7 @@ def follow(request, user_pk):
     # 나 자신은 팔로우 할 수 없다.
     if you != me:  
         if you.followers.filter(pk=request.user.pk).exists():
-        # if request.user in person.followers.all(): 
+        # if request.user in person.followers.all():
             # 팔로우 끊음(너의 followers에서 나를 지움)
             you.followers.remove(me)
         else:
