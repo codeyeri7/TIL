@@ -29,3 +29,5 @@
 | 0326 |        git branch         |  V   |
 | 0331 |       Many To Many        |  V   |
 | 0401 |     Many To Many 실습     |  V   |
+| 0402 |        pair pjt 07        |  V   |
+| 0405 |         Algo_Tree         |  V   |
