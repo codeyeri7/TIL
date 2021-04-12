@@ -33,3 +33,6 @@
 | 0405 |         Algo_Tree         |  V   |
 | 0406 |      Algo_Tree 실습       |  V   |
 | 0407 |       CT + BFS 보충       |  V   |
+| 0408 |          CT 실습          |  V   |
+| 0412 |         Tree 보충         |  V   |
+

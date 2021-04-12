@@ -1,4 +1,4 @@
-# 우하좌상(시계방향)으로 사방탐
+# 우하좌상(시계방향)으로 사방탐색
 dr = [0, 1, 0, -1]
 dc = [1, 0, -1, 0]
 def BFS(x, y):
@@ -23,7 +23,7 @@ def BFS(x, y):
             # 3을 만나면 도착! ans = 1, 끝내기!
             if miro[next_r][next_c] == 3:
                 ans = 1
-                break
+                return
             # 다음에 나올 위치 다시 Q에 집어 넣기
             Q.append((next_r, next_c))
             # 방문 체크(미로의 길이까지도 파악 가능)
