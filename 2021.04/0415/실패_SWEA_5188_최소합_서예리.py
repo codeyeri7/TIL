@@ -1,3 +1,5 @@
+# 런타임ㅠ
+
 import copy
 def find_minsum(x, y, minmin):  # 배열 탐색하며 숫자합 저장
     global visited
