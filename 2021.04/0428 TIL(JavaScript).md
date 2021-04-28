@@ -161,7 +161,7 @@ window.document : document도 브라우저 내에 종속되어 있기 때문에 
 
 :carrot: HTMLColletion
 
-​	--< getElementsByTagName()
+​	--> getElementsByTagName()
 
 ​	--> getElementsByClassName()
 
@@ -326,8 +326,6 @@ let oldChild = parent.removeChild(child)
 
 ---
 
-## 실습
-
 ## Event
 
 :rabbit: Event
@@ -373,4 +371,200 @@ let oldChild = parent.removeChild(child)
 ​	--> listener : 지정된 타입의 이벤트가 발생했을 때 알림을 받는 객체. EventListener 인터페이스 혹은 JS function 객체(콜백 함수)여야 함
 
 ![](0428 TIL(JavaScript).assets/KakaoTalk_20210429_005154987.jpg)
+
+---
+
+### 세미콜론
+
+:rabbit: 세미콜론 (semicolon)
+
+:carrot: 자바스크립트는 세미콜론을 선택적으로 사용 가능
+
+:carrot: 세미콜론이 없을 경우 ASI에 의해 자동으로 세미콜론이 삽입됨
+
+​	--> ASI : 자동 세미콜론 삽입 규칙
+
+:carrot: 본 수업에서는 자바스크립트의 문법 및 개념적 측면에 집중하기 위해 세미콜론을 사용하지 않고 진행
+
+---
+
+### ECMA
+
+:rabbit: ECMA
+
+:carrot: ECMA(ECMA International)
+
+​	--> 정보 통신에 대한 표준을 제정하는 비영리 표준화 기구
+
+:carrot: ECMAScript는 ECMA에서 ECMA-262 규격에 따라 정의한 언어
+
+​	--> ECMA-262 : 범용적인 목적의 프로그래밍 언어에 대한 명세
+
+:carrot: ECMAScript6는 ECMA에서 제안하는 6번째 표준 명세를 말함
+
+​	--> (참고) ECMAScript6의 발표 연도에 따라 ECMAScript2015라고도 불림
+
+---
+
+#### 변수와 식별자
+
+:rabbit: 식별자 정의와 특징
+
+:carrot: 식별자(identifier​)는 변수를 구분할 수 있는 변수명을 말함
+
+:carrot: 식별자는 반드시 문자, 달러($) 또는 밑줄(_)로 시작
+
+:carrot: 대소문자를 구분하며, 클래스명 외에는 모두 소문자로 시작
+
+:carrot: 예약어 사용 불가능
+
+​	--> 예약어 예시 : for, if, case 등
+
+---
+
+:rabbit: 식별자 작성 스타일
+
+:carrot: 카멜 케이스(camelCase, lower-camel-case) : 두번째 단어의 첫글자부터 대문자
+
+​	--> 변수, 객체, 함수에 사용
+
+:carrot: 파스칼 케이스(PascalCase, upper-camel-case) : 모든 글자의 첫번째 글자를 대문자로 작성
+
+​	--> 클래스, 생성자에 사용
+
+:carrot: 대문자 스네이크 케이스(SNAKE_CASE) : 모든 단어 대문자 작성 & 단어 사이에 언더스코어 삽입
+
+​	--> 상수(constants)에 사용 - 상수란? : 개발자의 의도와 상관없이 변경될 가능성이 없는 값을 말함 ex) TOKEN
+
+---
+
+:rabbit: 변수 선언 키워드 (let, const)
+
+:carrot: let
+
+​	--> <b>재할당 할 수 있는</b> 변수 선언 시 사용
+
+​	--> 변수 재선언 불가능
+
+​	--> 블록 스코프
+
+:carrot: const
+
+​	--> <b>재할당 할 수 없는</b> 변수 선언 시 사용
+
+​	--> 변수 재선언 불가능
+
+​	--> 블록 스코프
+
+---
+
+:rabbit: 선언, 할당 그리고 초기화 (참고)
+
+:carrot: 선언(Declaration) : 변수를 생성하는 행위 ​또는 시점
+
+:carrot: 할당(Assignment) : 선언된 변수에 값을 저장하는 행위 또는 시점
+
+:carrot: 초기화(Initialization) : 선언된 변수에 처음으로 값을 저장하는 행위 또는 시점
+
+---
+
+:rabbit: 변수 선언 키워드 (let, const) 예시 (1) - 재할당
+
+:carrot: let (재할당 가능)
+
+```javascript
+let number = 10  // 1. 선언 및 초기값 할당
+number = 10      // 2. 재할당
+
+console.log(number) // 10
+```
+
+:carrot: const (재할당 불가능)
+
+```javascript
+const number = 10  // 1. 선언 및 초기값 할당
+number = 10		   // 2. 재할당 불가능
+
+=> Uncaught TypeError
+   : Assignment to constant variable.
+```
+
+:rabbit: 변수 선언 키워드 (let, const) 예시 (2) - 재선언
+
+:carrot: let (재선언 불가능)
+
+```javascript
+let number = 10  // 1. 선언 및 초기값 할당
+let number = 50  // 2. 재선언 불가능
+
+=> Uncaught SyntaxError
+   : Identifier 'number' has already been declared
+```
+
+:carrot: const (재선언 불가능)
+
+```javascript
+const number = 10  // 1. 선언 및 초기값 할당
+const number = 50  // 2. 재선언 불가능
+
+=> Uncaught SyntaxError
+   : Identifier 'number' has already been declared
+```
+
+---
+
+:rabbit: 변수 선언 키워드 (let, const)
+
+:carrot: 블록 스코프 (block scope)
+
+​	--> if, for, 함수 등의 <b>중괄호 내부</b>를 가리킴
+
+​	--> 블록 스코프를 가지는 변수는 <b>블록 바깥에서 접근 불가능</b> 
+
+:exclamation: 중괄호 안에 있는 애와 밖에 있는 애는 서로 남남이다. 현재 결과값도 다름!
+
+```javascript
+let x = 1
+
+if (x === 1) {
+	let x = 2
+	console.log(x)  // 2
+}
+
+console.log(x)  // 1
+```
+
+---
+
+:rabbit: 변수 선언 키워드(var)
+
+:carrot: var
+
+- <b>var로 선언한 변수는 재선언 및 재할당 모두 가능</b> (이거 좋은 말이 아님...)
+- ES6 이전에 변수를 선언할 때 사용되던 키워드
+- 호이스팅*되는 특성으로 인해 예기치 못한 문제 발생 가능
+  - 따라서 ES6 이후부터는 var 대신 const와 let을 사용하는 것을 권장
+- 함수 스코프
+  - 함수의 중괄호 내부를 가리킴
+  - 함수 스코프를 가지는 변수는 함수 바깥에서 접근 불가능
+
+- 호이스팅* (hoisting)
+  - 변수를 선언 이전에 참조할 수 있는 현상
+  - 변수 선언 이전의 위치에서 접근 시 undefined를 반환
+
+---
+
+### 정리
+
+- 자바스크립트 변수 선언 시 사용 가능한 키워드는 const와 let 뿐이다. --> F
+  - 자바스크립트 변수 사용시 사용 가능한 키워드는 const, let 그리고 var이다.
+- const 키워드로 선언한 변수는 재할당이 가능하다. --> F
+  - const 키워드로 선언한 변수는 재할당이 불가능하다.
+- let 키워드로 선언한 변수는 재할당이 가능하다. --> T
+
+| 키워드 | 재선언 | 재할당 | 스코프      | 비고         |
+| ------ | ------ | ------ | ----------- | ------------ |
+| let    | X      | O      | 블록 스코프 | ES6부터 도입 |
+| const  | X      | X      | 블록 스코프 | ES6부터 도입 |
+| var    | O      | O      | 함수 스코프 | 사용 X       |
 
