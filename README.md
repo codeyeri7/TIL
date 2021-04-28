@@ -47,3 +47,4 @@
 | 0422 |        그래프 실습        |  V   |
 | 0426 |      REST API / DRF       |  V   |
 | 0427 |    REST API / DRF 실습    |  V   |
+| 0428 |        JavaScript         |  V   |
