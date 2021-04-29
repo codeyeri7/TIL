@@ -48,3 +48,4 @@
 | 0426 |      REST API / DRF       |  V   |
 | 0427 |    REST API / DRF 실습    |  V   |
 | 0428 |        JavaScript         |  V   |
+| 0429 |      JavaScript 문법      |  V   |
