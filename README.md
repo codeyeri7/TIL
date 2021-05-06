@@ -52,3 +52,4 @@
 | 0430 |          project          |  V   |
 | 0503 |      JavaScript 응용      |  V   |
 | 0504 |   JavaScript 응용 실습    |  V   |
+| 0506 |          vue js           |  V   |
