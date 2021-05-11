@@ -54,3 +54,4 @@
 | 0504 |   JavaScript 응용 실습    |  V   |
 | 0506 |          vue.js           |  V   |
 | 0510 |          vue.js           |  V   |
+| 0511 |       vue 클론 코딩       |  V   |
