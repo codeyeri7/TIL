@@ -20,7 +20,7 @@ if m == 1 and n < 100 and n > 0:
         for j in range(a, 0, -1):
             print('*', end='')
         print()
-
+# 2의 경우
 elif m == 2 and n < 100 and n > 0:
     mid = n // 2
     a = mid+1
@@ -42,23 +42,47 @@ elif m == 2 and n < 100 and n > 0:
             else:
                 print('*', end='')
         print()
+# 3의 경우
+elif m == 3 and n < 100 and n > 0:
+    nums = []
+    pop_nums = []
+    # nums에 0부터 n까지 숫자 추가
+    for i in range(n):
+        nums.append(i)
+    # 위에 절반
+    for i in range(n // 2):
+        for j in range(n):
+            if j in nums:
+                print('*', end='')
+            else:
+                print(' ', end='')
+        print()
+        # 양 끝의 인덱스 제거
+        zero_pop = nums.pop(0)
+        last_pop = nums.pop(-1)
+        # 제거한 숫자 저장
+        pop_nums.append(zero_pop)
+        pop_nums.append(last_pop)
+    # 아래 절반
+    for i in range(n // 2, n):
+        for j in range(n):
+            if j in nums:
+                print('*', end='')
+            else:
+                print(' ', end='')
+        print()
+        # pop_nums가 비어있지 않을때
+        if len(pop_nums) > 0:
+            # 아까 뺐던 인덱스 다시 추가
+            for k in range(2):
+                put_num = pop_nums.pop(-1)
+                nums.append(put_num)
+                nums = sorted(nums)  # 정렬
 
-# elif m == 3 and n < 100 and n > 0:
-#     mid = n // 2
-#     a = mid + 1
-#     for i in range(mid + 1):
-#         for j in range()
-#     for i in range(mid + 1, n):
-#         for j in range((2*n)-1):
-#             if j in check:
-#                 print('*', end='')
-#             else:
-#                 print(' ', end='')
-#         print()
-#         mid_one -= 1
-#         mid_plusone += 1
-#         check.append(mid_one)
-#         check.append(mid_plusone)
+# elif m == 4 and n < 100 and n > 0:
+
+
+#
 #
 # elif n < 1 or n > 100 or m < 1 or m > 3:
 #     print('INPUT ERROR!')
