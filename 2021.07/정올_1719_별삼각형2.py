@@ -44,7 +44,11 @@ elif m == 2 and n < 100 and n > 0:
         print()
 
 # elif m == 3 and n < 100 and n > 0:
-#     for i in range(n):
+#     mid = n // 2
+#     a = mid + 1
+#     for i in range(mid + 1):
+#         for j in range()
+#     for i in range(mid + 1, n):
 #         for j in range((2*n)-1):
 #             if j in check:
 #                 print('*', end='')
@@ -55,7 +59,7 @@ elif m == 2 and n < 100 and n > 0:
 #         mid_plusone += 1
 #         check.append(mid_one)
 #         check.append(mid_plusone)
-
-elif n < 1 or n > 100 or m < 1 or m > 3:
-    print('INPUT ERROR!')
+#
+# elif n < 1 or n > 100 or m < 1 or m > 3:
+#     print('INPUT ERROR!')
 
